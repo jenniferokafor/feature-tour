@@ -5,6 +5,7 @@ const infoSection = document.getElementById("infoSection");
 let currentPosition = 0;
 let currentPrimaryIconId = "primary-icon-1";
 let imgWrapperId = "img-wrapper-0";
+let textAndBtnWrapperId = "text-and-btn-wrapper-0";
 const xOffset = 20; // width of dot + 8px gap
 
 const noteImg = "./note.svg";
@@ -17,12 +18,17 @@ const features = [
     primaryIconAlt: "Note",
     badgeIcon: searchImg,
     badgeIconAlt: "Search",
+    heading: "Smart Search",
+    description:
+      "Files are automatically organised for easy search and access.",
   },
   {
     primaryIcon: fileImg,
     primaryIconAlt: "File",
     badgeIcon: checkImg,
     badgeIconAlt: "Check",
+    heading: "Offline Access",
+    description: "Access and edit your files without an internet connection.",
   },
 ];
 
@@ -31,6 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     dot.classList.add("init-move");
     dot.style.setProperty("--x-offset", `${index * xOffset}px`);
   });
+
+  // images
   const currentImgWrapper = document.createElement("div");
   currentImgWrapper.classList.add("current-img-wrapper");
   currentImgWrapper.id = imgWrapperId;
@@ -47,7 +55,24 @@ document.addEventListener("DOMContentLoaded", function () {
   primaryBadgeImg.id = currentPrimaryIconId;
   imgContent.append(primaryImg, primaryBadgeImg);
   currentImgWrapper.append(imgContent);
-  infoSection.append(currentImgWrapper);
+
+  // text and button
+  const currentTextAndBtnWrapper = document.createElement("div");
+  currentTextAndBtnWrapper.classList.add("current-text-and-btn");
+  currentTextAndBtnWrapper.id = textAndBtnWrapperId;
+  const currentHeading = document.createElement("h2");
+  currentHeading.textContent = features?.[0]?.heading;
+  const currentDescription = document.createElement("p");
+  currentDescription.textContent = features?.[0]?.description;
+  const currentButton = document.createElement("button");
+  currentButton.textContent = "Learn More";
+  currentTextAndBtnWrapper.append(
+    currentHeading,
+    currentDescription,
+    currentButton
+  );
+
+  infoSection.append(currentImgWrapper, currentTextAndBtnWrapper);
 });
 
 window.handleClick = function (position) {
@@ -58,6 +83,9 @@ window.handleClick = function (position) {
   );
   const currentImgWrapper = document.getElementById(imgWrapperId);
   currentImgWrapper.classList.add("disappear");
+  const currentTextAndBtnWrapper = document.getElementById(textAndBtnWrapperId);
+  currentTextAndBtnWrapper.classList.add("disappear");
+
   const newImgWrapper = document.createElement("div");
   newImgWrapper.id = `img-wrapper-${position}`;
   newImgWrapper.classList.add("new-img-wrapper");

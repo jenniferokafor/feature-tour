@@ -1,11 +1,19 @@
 :root {
   --primary: #f2f1f7;
+  --font-family: "Inter", serif;
 }
 
 body,
 .wrapper {
   margin: 0;
   padding: 0;
+}
+
+* {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: baseline;
 }
 
 .wrapper {
@@ -116,7 +124,6 @@ body,
 .new-img-wrapper {
   width: 150px;
   height: 150px;
-  border: 1px solid pink;
   position: absolute;
   top: 24px;
   left: 50%;
@@ -130,13 +137,14 @@ body,
   height: 100%;
 }
 
-.current-img-wrapper {
+.current-img-wrapper,
+.current-text-and-btn {
   opacity: 1;
   transition: opacity 0.75s;
-  border-color: blue;
 }
 
-.current-img-wrapper.disappear {
+.current-img-wrapper.disappear,
+.current-text-and-btn.disappear {
   opacity: 0;
 }
 
@@ -190,4 +198,40 @@ img.updated-badge-icon {
     width: 40px;
     height: 40px;
   }
+}
+
+.current-text-and-btn {
+  position: absolute;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  text-align: center;
+  gap: 8px;
+}
+
+.current-text-and-btn > * {
+  margin: 0;
+}
+
+.current-text-and-btn > h2 {
+  font: 600 24px/34px var(--font-family);
+  color: #3b3b3b;
+}
+
+.current-text-and-btn > p {
+  font: 500 18px/28px var(--font-family);
+  color: #929196;
+  margin-bottom: 8px;
+}
+
+.current-text-and-btn > button {
+  border: none;
+  width: 150px;
+  background-color: var(--primary);
+  color: #201f25;
+  border-radius: 30px;
+  height: 48px;
+  font: 500 18px/0px var(--font-family);
 }
