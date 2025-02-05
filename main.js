@@ -100,11 +100,29 @@ window.handleClick = function (position) {
   newBadgeImg.classList.add("updated-badge-icon");
   imgContent.append(newPrimaryImg, newBadgeImg);
   newImgWrapper.append(imgContent);
-  infoSection.append(newImgWrapper);
+
+  const newTextAndBtnWrapper = document.createElement("div");
+  newTextAndBtnWrapper.classList.add("new-text-and-btn-wrapper");
+  newTextAndBtnWrapper.id = `text-and-btn-wrapper-${position}`;
+  const newHeading = document.createElement("h2");
+  newHeading.textContent = features?.[position]?.heading;
+  const newDescription = document.createElement("p");
+  newDescription.textContent = features?.[position]?.description;
+  const newButton = document.createElement("button");
+  newButton.textContent = "Learn More";
+  newTextAndBtnWrapper.append(newHeading, newDescription, newButton);
+
+  infoSection.append(newImgWrapper, newTextAndBtnWrapper);
+
   window.setTimeout(() => {
     currentImgWrapper.remove();
+    currentTextAndBtnWrapper.remove();
     imgWrapperId = `img-wrapper-${position}`;
+    textAndBtnWrapperId = `text-and-btn-wrapper-${position}`;
     newImgWrapper.classList.remove("new-img-wrapper");
+    newTextAndBtnWrapper.classList.remove("new-text-and-btn-wrapper");
     newImgWrapper.classList.add("current-img-wrapper");
+    newTextAndBtnWrapper.classList.add("current-text-and-btn");
+    newHeading.classList.add("shimmer");
   }, 750);
 };

@@ -1,6 +1,7 @@
 :root {
   --primary: #f2f1f7;
   --font-family: "Inter", serif;
+  --content-change-duration: 0.75s;
 }
 
 body,
@@ -137,20 +138,18 @@ body,
   height: 100%;
 }
 
-.current-img-wrapper,
-.current-text-and-btn {
+.current-img-wrapper {
   opacity: 1;
-  transition: opacity 0.75s;
+  transition: opacity var(--content-change-duration);
 }
 
-.current-img-wrapper.disappear,
-.current-text-and-btn.disappear {
+.current-img-wrapper.disappear {
   opacity: 0;
 }
 
 img.updated-primary-icon {
   position: absolute;
-  animation: primary-image-intro 0.75s;
+  animation: primary-image-intro var(--content-change-duration);
   animation-fill-mode: forwards;
 }
 
@@ -176,7 +175,7 @@ img.updated-primary-icon {
 
 img.updated-badge-icon {
   position: absolute;
-  animation: primary-badge-image-intro 0.75s;
+  animation: primary-badge-image-intro var(--content-change-duration);
   animation-fill-mode: forwards;
 }
 
@@ -209,24 +208,64 @@ img.updated-badge-icon {
   max-width: 300px;
   text-align: center;
   gap: 8px;
+  z-index: 2;
 }
 
-.current-text-and-btn > * {
+.current-text-and-btn > *,
+.new-text-and-btn-wrapper > * {
   margin: 0;
 }
 
-.current-text-and-btn > h2 {
+.current-text-and-btn > h2,
+.new-text-and-btn-wrapper > h2 {
   font: 600 24px/34px var(--font-family);
   color: #3b3b3b;
 }
 
-.current-text-and-btn > p {
+.current-text-and-btn > h2.shimmer {
+  text-align: center;
+  background: linear-gradient(
+    90deg,
+    #222 0%,
+    rgba(255, 255, 255, 0.3) 30%,
+    #222 100%
+  );
+  background-size: 200% auto;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 0.75s linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  99% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 0 0;
+    background: none;
+    color: #3b3b3b;
+    -webkit-text-fill-color: #3b3b3b;
+  }
+}
+
+.current-text-and-btn > p,
+.new-text-and-btn-wrapper > p {
   font: 500 18px/28px var(--font-family);
   color: #929196;
   margin-bottom: 8px;
+  letter-spacing: 0.01px;
 }
 
-.current-text-and-btn > button {
+.current-text-and-btn > button,
+.new-text-and-btn-wrapper > button {
   border: none;
   width: 150px;
   background-color: var(--primary);
@@ -234,4 +273,40 @@ img.updated-badge-icon {
   border-radius: 30px;
   height: 48px;
   font: 500 18px/0px var(--font-family);
+}
+
+.current-text-and-btn {
+  opacity: 1;
+  transition: opacity var(--content-change-duration);
+}
+
+.current-text-and-btn.disappear {
+  opacity: 0;
+}
+
+.new-text-and-btn-wrapper {
+  animation: new-text-and-btn-intro var(--content-change-duration);
+  animation-fill-mode: forwards;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 300px;
+  text-align: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+@keyframes new-text-and-btn-intro {
+  0% {
+    opacity: 0;
+    top: 300px;
+    filter: blur(5px);
+  }
+
+  100% {
+    opacity: 1;
+    top: 200px;
+    filter: none;
+  }
 }
